@@ -1,7 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Box, Flex, Text } from "@chakra-ui/layout";
-import { Avatar } from "@chakra-ui/avatar";
 import { FaBed, FaBath } from "react-icons/fa";
 import { BsGridFill } from "react-icons/bs";
 import { GoVerified } from "react-icons/go";
@@ -24,51 +22,46 @@ const Property = ({
   },
 }) => (
   <Link href={`/property/${externalID}`} passHref>
-    <Flex
-      flexWrap="wrap"
-      w="420px"
-      p="5"
-      paddingTop="0px"
-      justifyContent="flex-start"
-      cursor="pointer"
-    >
-      <Box>
+    <div className="flex flex-wrap pt-0 justify-start cursor-pointer p-5 w-[420px]">
+      <div>
         <Image
           src={coverPhoto ? coverPhoto.url : DefaultImage}
+          alt=""
           width={400}
           height={260}
         />
-      </Box>
-      <Box w="full">
-        <Flex paddingTop="2" alignItems="center" justifyContent="space-between">
-          <Flex alignItems="center">
-            <Box paddingRight="3" color="green.400">
+      </div>
+      <div className="w-full">
+        <div className="flex pt-2 items-center justify-between">
+          <div className="flex items-center">
+            <div className="pr-3 text-green-400">
               {isVerified && <GoVerified />}
-            </Box>
-            <Text fontWeight="bold" fontSize="lg">
+            </div>
+            <h2 className="font-bold text-lg">
               AED {price}
               {rentFrequency && `/${rentFrequency}`}
-            </Text>
-          </Flex>
-          <Box>
-            <Avatar size="sm" src={agency?.logo?.url}></Avatar>
-          </Box>
-        </Flex>
-        <Flex
-          alignItems="center"
-          p="1"
-          justifyContent="space-between"
-          w="250px"
-          color="blue.400"
-        >
+            </h2>
+          </div>
+          <div>
+            <Image
+              src={agency?.logo?.url}
+              alt=""
+              width={80}
+              height={80}
+              objectFit="contain"
+              className="  "
+            />
+          </div>
+        </div>
+        <div className="flex items-center p-1 justify-between w-[250px] text-blue-4000">
           {rooms}
           <FaBed /> | {baths} <FaBath /> | {millify(area)} sqft <BsGridFill />
-        </Flex>
-        <Text fontSize="lg">
+        </div>
+        <h1 className="text-lg">
           {title.length > 30 ? title.substring(0, 30) + "..." : title}
-        </Text>
-      </Box>
-    </Flex>
+        </h1>
+      </div>
+    </div>
   </Link>
 );
 

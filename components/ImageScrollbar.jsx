@@ -8,7 +8,7 @@ const LeftArrow = () => {
   const { scrollPrev } = useContext(VisibilityContext);
 
   return (
-    <Flex justifyContent="center" alignItems="center" marginRight="1">
+    <div className="flex justify-center items-center mr-1">
       <Icon
         as={FaArrowAltCircleLeft}
         onClick={() => scrollPrev()}
@@ -16,7 +16,7 @@ const LeftArrow = () => {
         cursor="pointer"
         d={["none", "none", "none", "block"]}
       />
-    </Flex>
+    </div>
   );
 };
 
@@ -24,7 +24,7 @@ const RightArrow = () => {
   const { scrollNext } = useContext(VisibilityContext);
 
   return (
-    <Flex justifyContent="center" alignItems="center" marginLeft="1">
+    <div className="flex justify-center items-cnet mr-1">
       <Icon
         as={FaArrowAltCircleRight}
         onClick={() => scrollNext()}
@@ -32,7 +32,7 @@ const RightArrow = () => {
         cursor="pointer"
         d={["none", "none", "none", "block"]}
       />
-    </Flex>
+    </div>
   );
 };
 export default function ImageSrollbar({ data }) {
@@ -43,12 +43,10 @@ export default function ImageSrollbar({ data }) {
       style={{ overflow: "hidden" }}
     >
       {data.map((item) => (
-        <Box
+        <div
+          className="w-[910px] p-1 overflow-hidden"
           key={item.id}
-          width="910px"
-          itemId={item.id}
-          overflow="hidden"
-          p="1"
+          itemID={item.id}
         >
           <Image
             placeholder="blur"
@@ -59,7 +57,7 @@ export default function ImageSrollbar({ data }) {
             height={500}
             sizes="(max-width: 500px) 100px, (max-width: 1023px) 400px, 1000px"
           />
-        </Box>
+        </div>
       ))}
     </ScrollMenu>
   );
