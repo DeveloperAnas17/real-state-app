@@ -17,30 +17,14 @@ const Navbar = () => (
         Realtor
       </Link>
     </div>
-    {/* <Spacer /> */}
-    <div>
-      <Menu>
-        <MenuButton
-          as={IconButton}
-          icon={<FcMenu />}
-          variant="outline"
-          color="red.400"
-        />
-        <MenuList>
-          <Link href="/" passHref>
-            <MenuItem icon={<FcHome />}>Home</MenuItem>
-          </Link>
-          <Link href="/search" passHref>
-            <MenuItem icon={<BsSearch />}>Search</MenuItem>
-          </Link>
-          <Link href="/search?purpose=for-sale" passHref>
-            <MenuItem icon={<FcAbout />}>Buy Property</MenuItem>
-          </Link>
-          <Link href="/search?purpose=for-rent" passHref>
-            <MenuItem icon={<FiKey />}>Rent Property</MenuItem>
-          </Link>
-        </MenuList>
-      </Menu>
+    <div className="">
+      <ul className="hidden sm:flex items-center space-x-14">
+        <li className="">Home</li>
+        <li className="">Home</li>
+        <li className="">Home</li>
+        <li className="">Home</li>
+      </ul>
+      <FcMenu className="sm:hidden" />
     </div>
   </div>
 );

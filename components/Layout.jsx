@@ -1,8 +1,8 @@
-import Head from 'next/head';
-import { Box } from '@chakra-ui/react';
+import Head from "next/head";
+import { Box } from "@chakra-ui/react";
 
-import Footer from './Footer';
-import Navbar from './Navbar';
+import Footer from "./Footer";
+import Navbar from "./Navbar";
 
 export default function Layout({ children }) {
   return (
@@ -10,7 +10,7 @@ export default function Layout({ children }) {
       <Head>
         <title>Real Estate</title>
       </Head>
-      <Box maxWidth='1280px' m='auto'>
+      <div className="max-w-[1280px] mx-auto">
         <header>
           <Navbar />
         </header>
@@ -18,7 +18,7 @@ export default function Layout({ children }) {
         <footer>
           <Footer />
         </footer>
-      </Box>
+      </div>
     </>
   );
 }
