@@ -18,11 +18,27 @@ const Navbar = () => (
       </Link>
     </div>
     <div className="">
-      <ul className="hidden sm:flex items-center space-x-14">
-        <li className="">Home</li>
-        <li className="">Home</li>
-        <li className="">Home</li>
-        <li className="">Home</li>
+      <ul className="hidden sm:flex items-center space-x-6 md:space-x-14">
+        <Link href="/" passHref>
+          <li className="flex items-center font-medium cursor-pointer">
+            <FcHome className="mx-1" /> Home
+          </li>
+        </Link>
+        <Link href="/search" passHref>
+          <li className="flex items-center cursor-pointer">
+            <BsSearch className="mx-1" /> Seach
+          </li>
+        </Link>
+        <Link href="/search?purpose=for-sale" passHref>
+          <li className="flex items-center cursor-pointer ">
+            <FcAbout className="mx-1" /> Buy Property
+          </li>
+        </Link>
+        <Link href="/search?purpose=for-rent" passHref>
+          <li className="flex items-center cursor-pointer  ">
+            <FiKey className="mx-1" /> Rent Property
+          </li>
+        </Link>
       </ul>
       <FcMenu className="sm:hidden" />
     </div>
