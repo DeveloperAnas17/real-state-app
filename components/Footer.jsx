@@ -1,9 +1,7 @@
-import { Box } from '@chakra-ui/layout';
-
 const Footer = () => (
-  <Box textAlign='center' p='5' color='gray.600' borderTop='1px' borderColor='gray.100'>
+  <div className="text-center p-5 text-gray-600 border-t">
     © 2021 Realtor, Inc.
-  </Box>
+  </div>
 );
 
 export default Footer;

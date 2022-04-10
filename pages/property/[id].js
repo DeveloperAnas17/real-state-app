@@ -1,4 +1,4 @@
-import { Avatar } from "@chakra-ui/avatar";
+import Image from "next/image";
 import { FaBed, FaBath } from "react-icons/fa";
 import { BsGridFill } from "react-icons/bs";
 import { GoVerified } from "react-icons/go";
@@ -32,10 +32,16 @@ const PropertyDetails = ({
         <div className="pr-3 text-green-400">
           {isVerified && <GoVerified />}
         </div>
-        <h1 className="text-lg font-bold">
+        <h1 className="text-lg font-bold mr-2">
           AED {price} {rentFrequency && `/${rentFrequency}`}
         </h1>
-        <Avatar size="sm" src={agency?.logo?.url}></Avatar>
+        <Image
+          src={agency?.logo?.url}
+          alt=""
+          width={80}
+          height={80}
+          objectFit="contain"
+        />
       </div>
       <div className="flex items-center p-1 justify-between w-[250px] text-blue-400">
         {rooms}
@@ -44,7 +50,9 @@ const PropertyDetails = ({
     </div>
     <div className="mt-2">
       <h1 className="text-lg mb-2 font-bold">{title}</h1>
-      <p className="text-gray-600">{description}</p>
+      <p className="text-gray-600 leading-6 md:leading-7 font-medium text-sm">
+        {description}
+      </p>
     </div>
     <div className="flex flex-wrap uppercase justify-between">
       <div className="flex justify-between w-[400px] border-b-2 p-3">
@@ -70,7 +78,7 @@ const PropertyDetails = ({
         {amenities?.map((item) =>
           item?.amenities?.map((amenity) => (
             <div
-              className="font-bold text-blue-400 bg-gray-200 text-lg rounded-lg m-1 p-2"
+              className="font-semibold text-blue-500 bg-gray-200 text-sm rounded-lg m-1 p-2"
               key={amenity.text}
             >
               {amenity.text}
