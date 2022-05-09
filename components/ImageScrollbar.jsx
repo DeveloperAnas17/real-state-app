@@ -44,13 +44,13 @@ export default function ImageSrollbar({ data }) {
           </div>
         ))}
       </div>
-      <div className="sliderButton absolute bottom-14 flex z-10 right-14 space-x-3 ">
+      <div className="sliderButton absolute bottom-14 flex  right-14 space-x-3 ">
         <FaArrowAltCircleLeft
-          className="w-12 h-12 text-white rounded-full p-2 cursor-pointer border-2 select-none hover:bg-blue-500 hover:text-white hover:border-blue-500 transition hover:scale-105 duration-200 ease-out "
+          className="w-12 h-12 text-black rounded-full p-2 cursor-pointer border-2 border-black select-none hover:bg-blue-500 hover:text-white hover:border-blue-500 transition hover:scale-105 duration-200 ease-out "
           onClick={prevSlide}
         />
         <FaArrowAltCircleRight
-          className="w-12 h-12 text-white rounded-full p-2  cursor-pointer border-2 select-none hover:bg-blue-500 hover:text-white hover:border-blue-500 transition hover:scale-105 duration-200 ease-out"
+          className="w-12 h-12 text-black rounded-full p-2  cursor-pointer border-2 border-black select-none hover:bg-blue-500 hover:text-white hover:border-blue-500 transition hover:scale-105 duration-200 ease-out"
           onClick={nextSlide}
         />
       </div>

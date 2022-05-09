@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
-import { Flex, Select, Box, Text, Input, Spinner, Icon, Button } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { MdCancel } from 'react-icons/md';
-import Image from 'next/image';
+import { useEffect, useState } from "react";
+import { Select, Spinner } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { MdCancel } from "react-icons/md";
+import Image from "next/image";
 
-import { filterData, getFilterValues } from '../utils/filterData';
-import { baseUrl, fetchApi } from '../utils/fetchApi';
-import noresult from '../assets/images/noresult.svg';
+import { filterData, getFilterValues } from "../utils/filterData";
+import { baseUrl, fetchApi } from "../utils/fetchApi";
+import noresult from "../assets/images/noresult.svg";
 
 export default function SearchFilters() {
   const [filters] = useState(filterData);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [locationData, setLocationData] = useState();
   const [showLocations, setShowLocations] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -20,22 +20,24 @@ export default function SearchFilters() {
     const path = router.pathname;
     const { query } = router;
 
-    const values = getFilterValues(filterValues)
+    const values = getFilterValues(filterValues);
 
     values.forEach((item) => {
-      if(item.value && filterValues?.[item.name]) {
-        query[item.name] = item.value
+      if (item.value && filterValues?.[item.name]) {
+        query[item.name] = item.value;
       }
-    })
+    });
 
     router.push({ pathname: path, query: query });
   };
 
   useEffect(() => {
-    if (searchTerm !== '') {
+    if (searchTerm !== "") {
       const fetchData = async () => {
         setLoading(true);
-        const data = await fetchApi(`${baseUrl}/auto-complete?query=${searchTerm}`);
+        const data = await fetchApi(
+          `${baseUrl}/auto-complete?query=${searchTerm}`
+        );
         setLoading(false);
         setLocationData(data?.hits);
       };
@@ -45,72 +47,77 @@ export default function SearchFilters() {
   }, [searchTerm]);
 
   return (
-    <Flex bg='gray.100' p='4' justifyContent='center' flexWrap='wrap'>
+    <div className="bg-gray-100 p-4 flex justify-center flex-wrap">
       {filters?.map((filter) => (
-        <Box key={filter.queryName}>
-          <Select onChange={(e) => searchProperties({ [filter.queryName]: e.target.value })} placeholder={filter.placeholder} w='fit-content' p='2' >
+        <div key={filter.queryName}>
+          <Select
+            className="p-2 w-48"
+            onChange={(e) =>
+              searchProperties({ [filter.queryName]: e.target.value })
+            }
+            placeholder={filter.placeholder}
+            w="fit-content"
+            p="2"
+          >
             {filter?.items?.map((item) => (
               <option value={item.value} key={item.value}>
                 {item.name}
               </option>
             ))}
           </Select>
-        </Box>
+        </div>
       ))}
-      <Flex flexDir='column'>
-        <Button onClick={() => setShowLocations(!showLocations)} border='1px' borderColor='gray.200' marginTop='2' >
+      <div className="flex flex-col">
+        <button
+          className="border bg-white flex items-center justify-center w-[140px] h-[40px] border-gray-200  "
+          onClick={() => setShowLocations(!showLocations)}
+        >
           Search Location
-        </Button>
+        </button>
         {showLocations && (
-          <Flex flexDir='column' pos='relative' paddingTop='2'>
-            <Input
-              placeholder='Type Here'
+          <div className="flex flex-col relative pt-2">
+            <input
+              className="w-[300px] py-1 focus:border-gray-300"
+              placeholder="Type Here"
               value={searchTerm}
-              w='300px'
-              focusBorderColor='gray.300'
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            {searchTerm !== '' && (
-              <Icon
-                as={MdCancel}
-                pos='absolute'
-                cursor='pointer'
-                right='5'
-                top='5'
-                zIndex='100'
-                onClick={() => setSearchTerm('')}
+            {searchTerm !== "" && (
+              <MdCancel
+                className="absolute text-lg cursor-pointer right-5 top-3 z-20"
+                onClick={() => setSearchTerm("")}
               />
             )}
-            {loading && <Spinner margin='auto' marginTop='3' />}
+            {loading && <Spinner margin="auto" marginTop="3" />}
             {showLocations && (
-              <Box height='300px' overflow='auto'>
+              <div className="h-[300px] overflow-auto">
                 {locationData?.map((location) => (
-                  <Box
+                  <div
                     key={location.id}
                     onClick={() => {
-                      searchProperties({ locationExternalIDs: location.externalID });
+                      searchProperties({
+                        locationExternalIDs: location.externalID,
+                      });
                       setShowLocations(false);
                       setSearchTerm(location.name);
                     }}
                   >
-                    <Text cursor='pointer' bg='gray.200' p='2' borderBottom='1px' borderColor='gray.100' >
+                    <p className="cursor-pointer bg-gray-200 p-2 border-b border-gray-100">
                       {location.name}
-                    </Text>
-                  </Box>
+                    </p>
+                  </div>
                 ))}
                 {!loading && !locationData?.length && (
-                  <Flex justifyContent='center' alignItems='center' flexDir='column' marginTop='5' marginBottom='5' >
-                    <Image src={noresult} />
-                    <Text fontSize='xl' marginTop='3'>
-                      Waiting to search!
-                    </Text>
-                  </Flex>
+                  <div className="flex items-center justify-center flex-col mt-5 mb-5">
+                    <Image src={noresult} alt="" />
+                    <p className=" text-xl mt-3">Waiting to search!</p>
+                  </div>
                 )}
-              </Box>
+              </div>
             )}
-          </Flex>
+          </div>
         )}
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 }

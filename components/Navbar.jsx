@@ -1,48 +1,112 @@
 import Link from "next/link";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  IconButton,
-} from "@chakra-ui/react";
-import { FcMenu, FcHome, FcAbout } from "react-icons/fc";
-import { BsSearch } from "react-icons/bs";
-import { FiKey } from "react-icons/fi";
+import { FcMenu } from "react-icons/fc";
+import React, { useState, useRef, Fragment } from "react";
+import { RiCloseFill } from "react-icons/ri";
+import Logo from "../assets/images/logo.png";
+import Image from "next/image";
+import { useRouter } from "next/router";
+const headerNav = [
+  {
+    display: "Home",
+    path: "/",
+  },
+  {
+    display: "Search",
+    path: "/search",
+  },
+  {
+    display: "Buy Property",
+    path: "/search?purpose=for-sale",
+  },
+  {
+    display: "Rent Property",
+    path: "/search?purpose=for-rent",
+  },
+];
 
-const Navbar = () => (
-  <div className="flex p-2 border-b-8 justify-between items-center">
-    <div className="text-3xl text-blue-400 font-bold">
-      <Link href="/" paddingLeft="2">
-        Realtor
-      </Link>
-    </div>
-    <div className="">
-      <ul className="hidden sm:flex items-center space-x-6 md:space-x-14">
-        <Link href="/" passHref>
-          <li className="flex items-center font-medium cursor-pointer">
-            <FcHome className="mx-1" /> Home
-          </li>
-        </Link>
-        <Link href="/search" passHref>
-          <li className="flex items-center cursor-pointer">
-            <BsSearch className="mx-1" /> Seach
-          </li>
-        </Link>
-        <Link href="/search?purpose=for-sale" passHref>
-          <li className="flex items-center cursor-pointer ">
-            <FcAbout className="mx-1" /> Buy Property
-          </li>
-        </Link>
-        <Link href="/search?purpose=for-rent" passHref>
-          <li className="flex items-center cursor-pointer  ">
-            <FiKey className="mx-1" /> Rent Property
-          </li>
-        </Link>
-      </ul>
-      <FcMenu className="sm:hidden" />
-    </div>
-  </div>
-);
+const Navbar = () => {
+  const [nav, setNav] = useState(false);
+
+  const handleNav = () => {
+    setNav(!nav);
+  };
+
+  const { pathname } = useRouter();
+  const headerRef = useRef(null);
+  const active = headerNav.findIndex((e) => e.path === pathname);
+  const activeStyle = "text-red-600 transition duration-150 ease-in";
+  return (
+    <Fragment>
+      <div
+        className="bg-white shadow-md sticky top-0 left-0 right-0 z-10 flex justify-between  items-center h-20 w-full transition duration-200 ease-in-out  mx-auto px-4 text-gray-800"
+        ref={headerRef}
+      >
+        <div className="">
+          <div className="flex items-center">
+            <Link href={"/"} passHref>
+              <Image
+                className="cursor-pointer"
+                src={Logo}
+                alt="logo"
+                width={100}
+                height={100}
+                objectFit="contain"
+              />
+            </Link>
+          </div>
+        </div>
+        <ul className=" hidden md:flex items-center justify-end  space-x-14">
+          {headerNav.map((e, i) => (
+            <li
+              key={i}
+              className={`font-medium text-lg text-gray-800 ${
+                i === active ? activeStyle : ""
+              } hover:text-violet-600 transition duration-150 ease-in-out`}
+            >
+              <Link href={e.path}>{e.display}</Link>
+            </li>
+          ))}
+        </ul>
+        <div onClick={handleNav} className="block text-white md:hidden">
+          {nav ? (
+            <RiCloseFill className="text-violet-600 cursor-pointer" size={20} />
+          ) : (
+            <FcMenu className="text-white  cursor-pointer" size={20} />
+          )}
+        </div>
+        <ul
+          className={
+            nav
+              ? "fixed left-0 top-0 w-[60%] h-full border-r border-r-gray-400 bg-white text-gray-800 md:hidden ease-in-out duration-500"
+              : "ease-in-out duration-500 fixed left-[-100%]"
+          }
+        >
+          <div className="flex items-center ">
+            <Link href={"/"} passHref>
+              <Image
+                className="cursor-pointer"
+                src={Logo}
+                alt="logo"
+                width={100}
+                height={100}
+                objectFit="contain"
+              />
+            </Link>
+          </div>
+          {headerNav.map((e, i) => (
+            <li
+              key={i}
+              className={`font-medium mt-5 text-gray-800 border-b px-6 py-3 ${
+                i === active ? activeStyle : ""
+              } hover:text-violet-600 transition duration-150 ease-in-out`}
+            >
+              <Link href={e.path}>{e.display}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Fragment>
+  );
+};
 
 export default Navbar;

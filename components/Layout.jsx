@@ -10,11 +10,11 @@ export default function Layout({ children }) {
       <Head>
         <title>Real Estate</title>
       </Head>
-      <div className="max-w-[1280px] mx-auto">
+      <div className="">
         <header>
           <Navbar />
         </header>
-        <main>{children}</main>
+        <main className="">{children}</main>
         <footer>
           <Footer />
         </footer>
